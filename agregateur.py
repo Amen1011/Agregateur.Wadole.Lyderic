@@ -14,7 +14,7 @@ class AgregateurNews :
     def collecter_tous_les_titres(self) :
         self.articles = []
         for scraper in self.scrapers :
-            titres = scrapers.extraire_titres() : 
+            titres = scraper.extraire_titres()
             for titre in titres :
                 article = Article(titre, scraper.url, scraper.url)
                 self.articles.append(article)
