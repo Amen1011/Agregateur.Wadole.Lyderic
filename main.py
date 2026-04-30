@@ -5,8 +5,8 @@ print("1. Création de l'agrégateur...")
 mon_agregrateur = AgregateurNews(["Guerre","Elections"])
 
 print("2. Ajouter des sources...")
-mon_agregrateur.ajouter_source("https://exemple-site1.com")
-mon_agregrateur.ajouter_source("https://exemple-site2.com")
+mon_agregrateur.ajouter_source("https://www.bbc.com/news")
+mon_agregrateur.ajouter_source("https://edition.cnn.com")
 
 print("3. Collecte des titres...")
 resultat = mon_agregrateur.collecter_tous_les_titres()
@@ -16,7 +16,7 @@ print("5. Affichage des articles...")
 mon_agregrateur.afficher_articles()
 
 #sauvegarde 
-StorageJSON.sauvegarder(mon_aggregateur.articles)
+StorageJSON.sauvegarder(mon_agregrateur.articles)
 
 #chargement pour un nouveau programme
 nouveaux_articles = StorageJSON.charger()

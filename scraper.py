@@ -1,4 +1,6 @@
 import re
+import requests 
+from bs4 import BeautifulSoup
 from abc import ABC, abstractmethod
 
 class Scraper(ABC) :
@@ -18,16 +20,38 @@ class SiteScraper(Scraper) :
         return False
 
     def extraire_titres(self) :
-        titres_utilisateurs = [
-            "Résumé du match Real Madrid vs Alavès",
-            "Guerre en Iran",
-            "Elections présidentielles au Bénin"
-        ]
+        try:
+         headers={
+            "User-Agent": "Mozilla/5.0(windows NT 10.0; Win64; x64)"
+         }   
+            reponse = requests.get(self.url,timeout=5)
+            reponse.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
 
-        resultats = []
-        for titre in titres_utilisateurs :
-            if self.contient_mot_cle(titre) :
-                resultats.append(titre)
-        
-        return resultats
-           
+           articles = []
+
+           titres=soup.find_all(["h1","h2","h3"])
+           for t in titres:
+            texte = t.get_text().strip()
+
+            if text and self.continent_mot_cle(texte):
+                lien_tag = t.find_parent("a")
+                lien = lien_tag["href"] if lien_tag and lien_tag.has_attr("href") else self.url
+
+                if lien.startswith("/"):
+                   lien = self.url + lien 
+
+
+                   articles.append((texte,lien))
+
+            return articles
+
+
+         except requests.exceptions.RequestException as e:
+            print(f"ERREUR réseau pour {self.url}:",e)
+            return[]
+
+            except Exception as e:
+                print("Erreur scraping:", e)
+
+                return [] 
