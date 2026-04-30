@@ -1,4 +1,6 @@
 from agregateur import AgregateurNews
+from storage import StorageJSON
+
 print("1. Création de l'agrégateur...")
 mon_agregrateur = AgregateurNews(["Guerre","Elections"])
 
@@ -12,5 +14,11 @@ print(f"4. Resultat de la collecte : {resultat}")
 
 print("5. Affichage des articles...")
 mon_agregrateur.afficher_articles()
+
+#sauvegarde 
+StorageJSON.sauvegarder(mon_aggregateur.articles)
+
+#chargement pour un nouveau programme
+nouveaux_articles = StorageJSON.charger()
 
 print("6. Fin du programme")
