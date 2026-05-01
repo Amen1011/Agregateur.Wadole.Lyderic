@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsFlow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f0f1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #e94560;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #e94560;
+            letter-spacing: 3px;
+        }
+
+        header p {
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* SEARCH BAR */
+        .search-section {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 2px solid #e94560;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #666;
+        }
+
+        .search-box button {
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: none;
+            background: #e94560;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #c73652;
+        }
+
+        /* RESULTS */
+        .results-section {
+            padding: 20px 40px;
+        }
+
+        .results-title {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .results-title span {
+            color: #e94560;
+            font-weight: bold;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD */
+        .card {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #2a2a4a;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #e94560;
+        }
+
+        .card .source {
+            font-size: 0.75rem;
+            color: #e94560;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #e94560;
+            color: #fff;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
+
+        .card a:hover {
+            background: #c73652;
+        }
+
+        /* EMPTY STATE */
+        .empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: #555;
+        }
+
+        .empty p {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📰 NewsFlow</h1>
+        <p>Recherche des articles du monde entier</p>
+    </header>
+
+    <div class="search-section">
+        <form class="search-box" method="GET" action="/">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Ex: Python, IA, Football..." 
+                value="{{ query }}"
+                autofocus
+            >
+            <button type="submit">🔍 Chercher</button>
+        </form>
+    </div>
+
+    <div class="results-section">
+        {% if articles %}
+            <p class="results-title">
+                <span>{{ articles|length }}</span> article(s) trouvé(s) pour "<span>{{ query }}</span>"
+            </p>
+            <div class="articles-grid">
+                {% for article in articles %}
+                <div class="card">
+                    <p class="source">{{ article.source }}</p>
+                    <h3>{{ article.titre }}</h3>
+                    <a href="{{ article.url }}" target="_blank">Lire l'article →</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% elif query %}
+            <div class="empty">
+                <p>😕 Aucun article trouvé pour "<strong>{{ query }}</strong>"</p>
+                <p>Essaie un autre mot-clé !</p>
+            </div>
+        {% else %}
+            <div class="empty">
+                <p>👆 Tape un mot-clé pour commencer</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

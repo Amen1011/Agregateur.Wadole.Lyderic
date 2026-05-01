@@ -1,5 +1,5 @@
 from agregateur import AgregateurNews
-from storage import StorageJSON
+from storage import sauvegarder
 
 print("1. Création de l'agrégateur...")
 mon_agregrateur = AgregateurNews(["Guerre","Elections"])
@@ -10,15 +10,16 @@ mon_agregrateur.ajouter_source("https://edition.cnn.com")
 
 print("3. Collecte des titres...")
 resultat = mon_agregrateur.collecter_tous_les_titres()
+
 print(f"4. Resultat de la collecte : {resultat}")
 
 print("5. Affichage des articles...")
 mon_agregrateur.afficher_articles()
 
 #sauvegarde 
-StorageJSON.sauvegarder(mon_agregrateur.articles)
+sauvegarder(mon_agregrateur.articles)
 
 #chargement pour un nouveau programme
-nouveaux_articles = StorageJSON.charger()
+nouveaux_articles = sauvegarder.charger()
 
 print("6. Fin du programme")
