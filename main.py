@@ -1,5 +1,5 @@
 from agregateur import AgregateurNews
-from storage import sauvegarder
+from storage import sauvegarder, charger
 
 print("1. Création de l'agrégateur...")
 mon_agregrateur = AgregateurNews(["Guerre","Elections"])
@@ -9,7 +9,7 @@ mon_agregrateur.ajouter_source("https://www.bbc.com/news")
 mon_agregrateur.ajouter_source("https://edition.cnn.com")
 
 print("3. Collecte des titres...")
-resultat = mon_agregrateur.collecter_tous_les_titres()
+resultat = mon_agregrateur.collecter()
 
 print(f"4. Resultat de la collecte : {resultat}")
 
@@ -20,6 +20,6 @@ mon_agregrateur.afficher_articles()
 sauvegarder(mon_agregrateur.articles)
 
 #chargement pour un nouveau programme
-nouveaux_articles = sauvegarder.charger()
+nouveaux_articles = charger()
 
 print("6. Fin du programme")

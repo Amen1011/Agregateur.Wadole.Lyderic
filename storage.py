@@ -5,7 +5,7 @@ def sauvegarder(articles):
     for a in articles:
         data.append({
             "titre": a.titre,
-            "url": a.url,
+            "lien": a.lien,
             "source": a.source
         })
 

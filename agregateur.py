@@ -18,3 +18,11 @@ class AgregateurNews:
             for titre, lien in resultats:
                 self.articles.append(Article(titre, lien, scraper.url))
         print(f"[DEBUG] TOTAL : {len(self.articles)}")
+        return self.articles
+    
+    def afficher_articles(self) :
+        if not self.articles :
+            print("Aucun article trouvé")
+        else :
+            for i, article in enumerate(self.articles, start = 1 ):
+                print(f"{i} {article.titre} ({article.source}) -> {article.lien}")

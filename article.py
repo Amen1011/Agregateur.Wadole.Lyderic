@@ -1,5 +1,5 @@
 class Article:
-    def _init_(self, titre, url, source) :
+    def __init__(self, titre, lien, source) :
         self.titre = titre
-        self.url = url
+        self.lien = lien
         self.source = source
